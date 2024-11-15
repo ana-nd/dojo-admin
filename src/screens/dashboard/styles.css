@@ -1,0 +1,60 @@
+.dashboard {
+  background-color: #f6f6f6;
+  min-height: 100vh;
+}
+
+.dasboard-header {
+  height: 5rem;
+  background-color: #ffffff;
+  position: sticky;
+  top: 0;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+  z-index: 999;
+}
+
+.dashboard-content {
+  padding: 1rem;
+}
+
+/* .container {
+  
+} */
+
+.container-left {
+  width: 55%;
+}
+
+.container-right {
+  width: 45%;
+}
+
+.card {
+  border-radius: 0.5rem;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  padding: 0.5rem;
+  width: 100%;
+  background-color: #ffffff;
+}
+
+.emp-total-card {
+    height: 100px;
+}
+
+.emp-ontime-card {
+    height: 150px;
+    margin-bottom: 1rem;
+}
+
+.emp-late-card {
+    height: 150px;
+}
+
+.label {
+    font-size: 1rem;
+    color: #ffffff;
+}
+
+.count {
+    font-size: 3rem;
+    color: #ffffff;
+}
