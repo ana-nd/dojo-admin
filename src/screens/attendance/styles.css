@@ -1,0 +1,96 @@
+/* Container and general layout */
+.attendance-container {
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Header Section */
+  .attendance-header {
+    margin-bottom: 20px;
+    text-align: right;
+  }
+  
+  .upload-btn {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+  }
+  
+  .upload-btn:hover {
+    background-color: #45a049;
+  }
+  
+  /* Table Section */
+  .attendance-table table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background-color: white; /* Set the table background to white */
+  }
+  
+  .attendance-table th, .attendance-table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid #ddd;
+  }
+  
+  .attendance-table th {
+    background-color: #f2f2f2;  /* Light gray for the header */
+    font-weight: bold;
+  }
+  
+  .attendance-table tr:hover {
+    background-color: #f9f9f9;
+  }
+  
+  /* Modal Styling */
+  .upload-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+  }
+  
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    width: 400px;
+    text-align: center;
+  }
+  
+  .modal-content h2 {
+    margin-bottom: 20px;
+  }
+  
+  .modal-content input {
+    padding: 8px;
+    width: 100%;
+    border: 1px solid #ddd;
+    margin-bottom: 20px;
+    font-size: 14px;
+  }
+  
+  .close-btn {
+    padding: 10px 20px;
+    background-color: #f44336;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 5px;
+  }
+  
+  .close-btn:hover {
+    background-color: #d32f2f;
+  }
+  

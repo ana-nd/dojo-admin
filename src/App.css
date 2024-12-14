@@ -1,0 +1,15 @@
+.app-container {
+    display: flex; 
+    height: 100vh;
+  }
+  
+  .main-content {
+    flex-grow: 1;   /* This makes the content area take up the remaining space */
+    background-color: #ecf0f1; /* Light gray background for the content area */
+    padding: 20px;
+    height: 100vh;
+    overflow-y: auto;
+    box-sizing: border-box;
+    margin-left: 240px;
+  }
+  

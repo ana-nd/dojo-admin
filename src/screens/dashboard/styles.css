@@ -1,60 +1,141 @@
-.dashboard {
-  background-color: #f6f6f6;
-  min-height: 100vh;
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 cards per row */
+  gap: 20px;
 }
 
-.dasboard-header {
-  height: 5rem;
-  background-color: #ffffff;
-  position: sticky;
-  top: 0;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
-  z-index: 999;
+.card-item {
+  background: white;
+  padding: 16px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  height: 100px; /* Adjust height for spacing */
+  border-left: 6px solid transparent; /* Default left border */
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
-.dashboard-content {
-  padding: 1rem;
+.card-item h4 {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333333;
+  margin: 0;
+  position: absolute;
+  top: 15px;
+  left: 20px;
 }
 
-/* .container {
-  
-} */
-
-.container-left {
-  width: 55%;
+.card-item p {
+  font-size: 32px; /* Larger font size for values */
+  font-weight: bold;
+  color: #111827;
+  margin: 0;
+  position: absolute;
+  bottom: 10px;
+  right: 20px;
 }
 
-.container-right {
-  width: 45%;
+/* Hover Effect */
+.card-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
 }
 
+/* Value colors for cards */
+.green {
+  background-color: #e6f7e6;
+  border-left-color: #34d399; /* Green border */
+}
+
+.orange {
+  background-color: #fff5e0;
+  border-left-color: #fbbf24; /* Orange border */
+}
+
+.blue {
+  background-color: #e0f2fe;
+  border-left-color: #60a5fa; /* Blue border */
+}
+
+.red {
+  background-color: #fee2e2;
+  border-left-color: #f87171; /* Red border */
+}
+
+/* Chart Cards Styles */
+.chart-card,
 .card {
-  border-radius: 0.5rem;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  padding: 0.5rem;
-  width: 100%;
-  background-color: #ffffff;
+  background: white;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.emp-total-card {
-    height: 100px;
+.chart-card input {
+    padding: 8px;
+    font-size: 14px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    cursor: pointer;
 }
 
-.emp-ontime-card {
-    height: 150px;
-    margin-bottom: 1rem;
+.attendance-summary {
+  display: flex;
+  flex-direction: column;
 }
 
-.emp-late-card {
-    height: 150px;
+.summary-item {
+  border-radius: 8px;
+  padding: 8px;
+  margin: 8px 0;
+  background: #f8fafc;
 }
 
-.label {
-    font-size: 1rem;
-    color: #ffffff;
+.summary-item.total {
+  background-color: #f1f5f9;
 }
 
-.count {
-    font-size: 3rem;
-    color: #ffffff;
+.summary-item.present {
+  background-color: #e6f7f1;
+  color: #34d399;
+}
+
+.summary-item.absent {
+  background-color: #fef6e4;
+  color: #f97316;
+}
+
+.summary-item p {
+  font-size: 14px;
+  color: #555;
+}
+
+.summary-item strong {
+  font-size: 20px;
+  font-weight: bold;
+  float: right;
+}
+/* Ensure that summary-cards is a 2-column grid */
+.dashboard-cards {
+  display: grid;
+  grid-template-columns: 1fr; /* 1 column layout for larger content (charts) */
+  gap: 20px;
+}
+
+@media (min-width: 768px) {
+  /* When the screen width is larger than 768px, create 2 columns */
+  .dashboard-cards {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+/* Responsive Layout for Small Screens */
+@media (max-width: 768px) {
+  .summary-cards {
+    grid-template-columns: 1fr; /* Stack cards vertically on smaller screens */
+  }
+
+  .dashboard-cards {
+    grid-template-columns: 1fr; /* 1 column layout for charts */
+  }
 }
