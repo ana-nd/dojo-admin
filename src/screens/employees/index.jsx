@@ -21,7 +21,7 @@ const Employees = () => {
     designation: "",
     skills: "",
     cardNo: "",
-    role: "",
+    roles: "",
     is_employee: "",
     is_trainer: "",
     is_hr: "",
@@ -44,10 +44,10 @@ const Employees = () => {
           id: (currentPage - 1) * employeesPerPage + index + 1, // Countdown ID
           firstname: emp.first_name,
           lastname: emp.last_name,
-          department: emp.department,
-          designation: emp.designation,
+          department: emp.department_name,
+          designation: emp.designation_name,
           cardNo: emp.card_number,
-          skills: emp.is_employee ? "Employee Skills" : "General Skills",
+          skills: emp.skills || "N/A",
         }));
         setEmployees(fetchedEmployees);
         setTotalPages(Math.ceil(response.data.count / employeesPerPage)); // Calculate total pages
@@ -84,13 +84,7 @@ const Employees = () => {
           designation: newEmployee.designation,
           skills: newEmployee.skills,
           card_number: newEmployee.cardNo,
-          is_employee: newEmployee.is_employee,
-          is_trainer: newEmployee.is_trainer,
-          is_hr: newEmployee.is_hr,
-          is_support: newEmployee.is_support,
-          is_marketing: newEmployee.is_marketing,
-          is_sales: newEmployee.is_sales,
-          is_engineering: newEmployee.is_engineering,
+          roles:newEmployee.roles,
         }
       );
       // Optionally, add the new employee to the local state after successful API call
@@ -104,13 +98,7 @@ const Employees = () => {
         designation: "",
         skills: "",
         cardNo: "",
-        is_employee: "",
-        is_trainer: "",
-        is_hr: "",
-        is_support: "",
-        is_marketing: "",
-        is_sales: "",
-        is_engineering: "",
+        roles:"",
       });
     } catch (error) {
       if (error.response && error.response.data && error.response.data.error) {
