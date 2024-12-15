@@ -15,7 +15,7 @@ const Layout = () => {
     <div className="app-container">
       <Sidebar />
       <div className="main-content">
-        <Outlet /> {/* Renders the child routes */}
+        <Outlet /> 
       </div>
     </div>
   );
