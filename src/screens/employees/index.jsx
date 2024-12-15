@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axiosInstance from "../../interceptor/axiosInstance";
 import "./styles.css";
 import Button from "../../components/Button";
@@ -21,6 +21,7 @@ const Employees = () => {
     designation: "",
     skills: "",
     cardNo: "",
+    role: "",
     is_employee: "",
     is_trainer: "",
     is_hr: "",
@@ -203,7 +204,7 @@ const Employees = () => {
                 <td>{emp.skills}</td>
                 <td>
                   <Button
-                    variant="secondary"
+                    variant="warning"
                     size="small"
                     onClick={() => handleEdit(emp.id)}
                   >
@@ -217,182 +218,48 @@ const Employees = () => {
       </div>
 
       {/* Pagination Controls */}
-      <div className="pagination-controls">
-        <button
-          className="pagination-btn"
+      <div className="flex flex-end gap-8 mt-2">
+        <Button
+          variant="secondary"
+          size="small"
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
         >
           Previous
-        </button>
+        </Button>
 
         {/* Render pagination buttons */}
         {renderPaginationButtons().map((pageNumber) => (
-          <button
+          <Button
+            variant={
+              currentPage === pageNumber ? "secondary" : "outline-secondary"
+            }
+            size="small"
             key={pageNumber}
-            className={`pagination-btn ${
-              currentPage === pageNumber ? "active" : ""
-            }`}
             onClick={() => handlePageChange(pageNumber)}
           >
             {pageNumber}
-          </button>
+          </Button>
         ))}
 
-        <button
-          className="pagination-btn"
+        <Button
+          variant="secondary"
+          size="small"
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
         >
           Next
-        </button>
+        </Button>
       </div>
 
+      <AddEmployee
+        open={showAddEmployee}
+        onClose={() => setShowAddEmployee(false)}
+        handleSave={addEmployee}
+        newEmployee={newEmployee}
+        handleChange={handleChange}
+      />
       {/* Add New Employee Modal */}
-      {showAddEmployee && (
-        <div className="modal">
-          <div className="modal-content">
-            <h2>Add New Employee</h2>
-            <form>
-              <input
-                type="text"
-                name="firstname"
-                placeholder="First Name"
-                value={newEmployee.firstname}
-                onChange={handleChange}
-              />
-              <input
-                type="text"
-                name="lastname"
-                placeholder="Last Name"
-                value={newEmployee.lastname}
-                onChange={handleChange}
-              />
-              <input
-                type="text"
-                name="email"
-                placeholder="Email"
-                value={newEmployee.email}
-                onChange={handleChange}
-              />
-              <input
-                type="text"
-                name="department"
-                placeholder="Department"
-                value={newEmployee.department}
-                onChange={handleChange}
-              />
-              <input
-                type="text"
-                name="designation"
-                placeholder="Designation"
-                value={newEmployee.designation}
-                onChange={handleChange}
-              />
-              <input
-                type="text"
-                name="skills"
-                placeholder="Skills"
-                value={newEmployee.skills}
-                onChange={handleChange}
-              />
-              <input
-                type="text"
-                name="cardNo"
-                placeholder="Card Number"
-                value={newEmployee.cardNo}
-                onChange={handleChange}
-              />
-
-              <label>Role/Permission</label>
-              <div className="role-options">
-                <label>
-                  <input
-                    type="radio"
-                    name="is_employee"
-                    value="true"
-                    checked={newEmployee.is_employee}
-                    onChange={handleChange}
-                  />
-                  Employee
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    name="is_trainer"
-                    value="true"
-                    checked={newEmployee.is_trainer}
-                    onChange={handleChange}
-                  />
-                  Trainer
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    name="is_hr"
-                    value="true"
-                    checked={newEmployee.is_hr}
-                    onChange={handleChange}
-                  />
-                  HR
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    name="is_support"
-                    value="true"
-                    checked={newEmployee.is_support}
-                    onChange={handleChange}
-                  />
-                  Support
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    name="is_marketing"
-                    value="true"
-                    checked={newEmployee.is_marketing}
-                    onChange={handleChange}
-                  />
-                  Marketing
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    name="is_sales"
-                    value="true"
-                    checked={newEmployee.is_sales}
-                    onChange={handleChange}
-                  />
-                  Sales
-                </label>
-                <label>
-                  <input
-                    type="radio"
-                    name="is_engineering"
-                    value="true"
-                    checked={newEmployee.is_engineering}
-                    onChange={handleChange}
-                  />
-                  Engineering
-                </label>
-              </div>
-            </form>
-
-            <div className="modal-actions">
-              <button className="save-btn" onClick={addEmployee}>
-                Save
-              </button>
-              <button
-                className="cancel-btn"
-                onClick={() => setShowAddEmployee(false)}
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
 
       <ToastContainer
         position="top-right" // Position of the toast (top-right, top-center, etc.)

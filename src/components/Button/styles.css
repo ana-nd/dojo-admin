@@ -41,6 +41,22 @@
   background-color: #343a40;
 }
 
+.btn-outline-secondary {
+  background-color: transparent;
+  color: #6c757d;
+  border: 2px solid #6c757d;
+}
+
+.btn-outline-secondary:hover {
+  background-color: #6c757d;
+  color: #fff;
+}
+
+.btn-outline-secondary:active {
+  background-color: #343a40;
+  color: #fff;
+}
+
 /* Danger Button */
 .btn-danger {
   background-color: #dc3545;
@@ -51,6 +67,18 @@
 }
 .btn-danger:active {
   background-color: #bd2130;
+}
+
+/* Warning Button */
+.btn-warning {
+  background-color: #e67e22;
+  color: #fff;
+}
+.btn-warning:hover {
+  background-color: #d35400;
+}
+.btn-warning:active {
+  background-color: #a84300;
 }
 
 /* Link Button */
@@ -73,7 +101,7 @@
   border: 2px solid #007bff;
 }
 .btn-outline:hover {
-  background-color: transparent; 
+  background-color: transparent;
   color: #0056b3;
   border-color: #0056b3;
 }
@@ -85,14 +113,14 @@
 
 /* Success Button */
 .btn-success {
-  background-color: #4CAF50;
+  background-color: #4caf50;
   color: #fff;
 }
 .btn-success:hover {
-  background-color: #45A049;
+  background-color: #45a049;
 }
 .btn-success:active {
-  background-color: #3D8B3F;
+  background-color: #3d8b3f;
 }
 
 /* Disabled Button */

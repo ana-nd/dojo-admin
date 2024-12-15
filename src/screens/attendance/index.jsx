@@ -132,7 +132,9 @@ const Attendance = () => {
               </Button>
               {generatePageNumbers().map((page, index) => (
                 <Button
-                  variant="secondary"
+                  variant={
+                    currentPage === page ? "secondary" : "outline-secondary"
+                  }
                   size="small"
                   key={index}
                   onClick={() =>

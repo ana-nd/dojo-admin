@@ -43,6 +43,8 @@ Button.propTypes = {
     "danger",
     "link",
     "outline",
+    "warning",
+    "outline-secondary",
   ]),
   size: PropTypes.oneOf(["small", "medium", "large"]),
   disabled: PropTypes.bool,

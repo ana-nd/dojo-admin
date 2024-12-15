@@ -130,6 +130,7 @@ textarea.error {
 
 /* Placeholder Text */
 input::placeholder,
+select option:first-child,
 textarea::placeholder {
   color: #aaa; /* Light gray placeholder */
   font-style: italic; /* Italic for distinction */
