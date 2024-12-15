@@ -1,27 +1,43 @@
-import React, { useState } from 'react';
-import './styles.css';
+import { useState } from "react";
+import "./styles.css";
+import Button from "../../components/Button";
+import CreateBatch from "./CreateBatch";
 
 // Dummy data for departments and users
-const dummyDepartments = ['HR', 'IT', 'Finance', 'Operations'];
+const dummyDepartments = [
+  "ASSOCIATE",
+  "ASST MANAGER-I",
+  "ASST. GENERAL MANAGER-II",
+  "ASST. MANAGER-II",
+  "EXECUTIVE -I",
+  "EXECUTIVE -II",
+  "EXECUTIVE -III",
+  "GENERAL MANAGER-I",
+  "MANAGER-I",
+  "MANAGER-II",
+  "TRAINEE D.E.T AND G.E.T",
+  "VICE PRESIDENT",
+  "OPERATOR",
+];
 const dummyUsers = [
-  { id: 1, name: 'John Doe' },
-  { id: 2, name: 'Jane Smith' },
-  { id: 3, name: 'Sam Brown' },
-  { id: 4, name: 'Lisa White' },
+  { id: 1, name: "John Doe" },
+  { id: 2, name: "Jane Smith" },
+  { id: 3, name: "Sam Brown" },
+  { id: 4, name: "Lisa White" },
 ];
 
 const BatchManagement = () => {
   const [batches, setBatches] = useState([]);
   const [newBatch, setNewBatch] = useState({
-    name: '',
-    department: '',
+    name: "",
+    department: "",
     users: [],
-    targetDate: '',
-    startDate: '',
-    trainer: '',
+    targetDate: "",
+    startDate: "",
+    trainer: "",
   });
 
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [showCreateBatch, setShowCreateBatch] = useState(false);
 
   // Handle form input changes
   const handleChange = (e) => {
@@ -46,26 +62,23 @@ const BatchManagement = () => {
   // Handle batch creation
   const handleCreateBatch = () => {
     setBatches([...batches, { ...newBatch, id: Date.now() }]);
-    setIsModalVisible(false); // Close the modal
+    setShowCreateBatch(false); // Close the modal
     setNewBatch({
-      name: '',
-      department: '',
+      name: "",
+      department: "",
       users: [],
-      targetDate: '',
-      startDate: '',
-      trainer: '',
+      targetDate: "",
+      startDate: "",
+      trainer: "",
     }); // Reset form
   };
-
-  // Open/Close modal for adding a batch
-  const toggleModal = () => setIsModalVisible(!isModalVisible);
 
   return (
     <div className="batch-management-container">
       <div className="header">
-        <button className="add-batch-btn" onClick={toggleModal}>
+        <Button variant="success" onClick={() => setShowCreateBatch(true)}>
           Create Batch
-        </button>
+        </Button>
       </div>
 
       {/* Display Batches in Card View */}
@@ -83,77 +96,17 @@ const BatchManagement = () => {
           <p>No batches available</p>
         )}
       </div>
-
-      {/* Batch Creation Modal */}
-      {isModalVisible && (
-        <div className="modal">
-          <div className="modal-content">
-            <h2>Create New Batch</h2>
-            <form>
-              <input
-                type="text"
-                name="name"
-                placeholder="Batch Name"
-                value={newBatch.name}
-                onChange={handleChange}
-              />
-              <select
-                name="department"
-                value={newBatch.department}
-                onChange={handleDepartmentChange}
-              >
-                <option value="">Select Department</option>
-                {dummyDepartments.map((dept, index) => (
-                  <option key={index} value={dept}>
-                    {dept}
-                  </option>
-                ))}
-              </select>
-              <select
-                name="users"
-                multiple
-                value={newBatch.users}
-                onChange={handleUserSelection}
-              >
-                {dummyUsers.map((user) => (
-                  <option key={user.id} value={user.id}>
-                    {user.name}
-                  </option>
-                ))}
-              </select>
-              <input
-                type="date"
-                name="targetDate"
-                placeholder="Target Date"
-                value={newBatch.targetDate}
-                onChange={handleChange}
-              />
-              <input
-                type="date"
-                name="startDate"
-                placeholder="Start Date"
-                value={newBatch.startDate}
-                onChange={handleChange}
-              />
-              <input
-                type="text"
-                name="trainer"
-                placeholder="Trainer Name"
-                value={newBatch.trainer}
-                onChange={handleChange}
-              />
-            </form>
-            <div className="modal-actions">
-              <button className="save-btn" onClick={handleCreateBatch}>
-                Save
-              </button>
-              <button className="cancel-btn" onClick={toggleModal}>
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <CreateBatch
+        open={showCreateBatch}
+        onClose={() => setShowCreateBatch(false)}
+        newBatch={newBatch}
+        departments={dummyDepartments}
+        users={dummyUsers}
+        handleSave={handleCreateBatch}
+        handleChange={handleChange}
+        handleDepartmentChange={handleDepartmentChange}
+        handleUserSelection={handleUserSelection}
+      />
     </div>
   );
 };
