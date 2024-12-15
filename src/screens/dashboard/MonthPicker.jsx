@@ -25,18 +25,7 @@ const MonthPicker = (props) => {
 
   return (
     <div>
-      <input
-        type="month"
-        value={selectedDate}
-        onChange={handleChange}
-        style={{
-          padding: "8px",
-          fontSize: "14px",
-          borderRadius: "4px",
-          border: "1px solid #ccc",
-          cursor: "pointer",
-        }}
-      />
+      <input type="month" value={selectedDate} onChange={handleChange} />
     </div>
   );
 };

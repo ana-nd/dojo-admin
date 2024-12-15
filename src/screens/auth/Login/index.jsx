@@ -1,21 +1,22 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './styles.css'; // Link to the CSS file for styling
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import "./styles.css"; // Link to the CSS file for styling
+import Button from "../../../components/Button";
 
 const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
 
     // Replace this with real authentication logic
-    if (username === 'admin' && password === 'admin') {
-      localStorage.setItem('isAuthenticated', 'true');
-      navigate('/dashboard');
+    if (username === "admin" && password === "admin") {
+      localStorage.setItem("isAuthenticated", "true");
+      navigate("/dashboard");
     } else {
-      alert('Invalid credentials');
+      alert("Invalid credentials");
     }
   };
 
@@ -44,7 +45,9 @@ const Login = () => {
               placeholder="Enter your password"
             />
           </div>
-          <button type="submit" className="login-button">Login</button>
+          <Button type="submit" variant="primary" fullWidth>
+            Login
+          </Button>
         </form>
       </div>
     </div>

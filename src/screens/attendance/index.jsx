@@ -1,40 +1,31 @@
-import React, { useState } from 'react';
-import './styles.css';
+import { useState } from "react";
+import "./styles.css";
+import UploadAttendance from "./UploadAttendance";
+import Button from "../../components/Button";
 
 // Dummy attendance data (replace with your API data)
 const dummyData = [
-  { id: 1, name: 'John Doe', status: 'Present', date: '2024-12-01' },
-  { id: 2, name: 'Jane Smith', status: 'Absent', date: '2024-12-01' },
-  { id: 3, name: 'Sam Brown', status: 'Present', date: '2024-12-02' },
+  { id: 1, name: "John Doe", status: "Present", date: "2024-12-01" },
+  { id: 2, name: "Jane Smith", status: "Absent", date: "2024-12-01" },
+  { id: 3, name: "Sam Brown", status: "Present", date: "2024-12-02" },
   // Add more data here
 ];
 
 const Attendance = () => {
   const [attendanceData, setAttendanceData] = useState(dummyData);
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [showUplaodModal, setShowUplaodModal] = useState(false);
 
-  // Open/Close Upload Modal
-  const showUploadModal = () => setIsModalVisible(true);
-  const handleCancel = () => setIsModalVisible(false);
-
-  // Handle file upload
-  const handleUpload = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      console.log('Uploaded file:', file);
-      setIsModalVisible(false);  // Close modal after file upload
-      // Here, you can parse the file and update the attendance data if needed
-    }
+  const handleFileUpload = () => {
+    setShowUplaodModal(false); // Close modal after file upload
   };
 
   return (
     <div className="attendance-container">
       <div className="attendance-header">
-        <button className="upload-btn" onClick={showUploadModal}>
+        <Button variant="success" onClick={() => setShowUplaodModal(true)}>
           Upload Attendance
-        </button>
+        </Button>
       </div>
-
       {/* Attendance Table */}
       <div className="attendance-table">
         <table>
@@ -58,17 +49,11 @@ const Attendance = () => {
           </tbody>
         </table>
       </div>
-
-      {/* Upload Modal */}
-      {isModalVisible && (
-        <div className="upload-modal">
-          <div className="modal-content">
-            <h2>Upload Attendance (Excel)</h2>
-            <input type="file" accept=".xls,.xlsx" onChange={handleUpload} />
-            <button className="close-btn" onClick={handleCancel}>Close</button>
-          </div>
-        </div>
-      )}
+      <UploadAttendance
+        open={showUplaodModal}
+        onClose={() => setShowUplaodModal(false)}
+        handleUpload={handleFileUpload}
+      />
     </div>
   );
 };
