@@ -102,6 +102,12 @@
   cursor: not-allowed;
 }
 
+.btn-disabled:hover {
+  background-color: #e0e0e0ea;
+  color: #a0a0a0;
+  cursor: not-allowed;
+}
+
 /* Button Sizes */
 .btn-small {
   font-size: 14px;

@@ -1,16 +1,37 @@
-import { useState } from "react";
+// OperatorAttendance.jsx
+import { useState, useEffect } from "react";
 import { ResponsivePie } from "@nivo/pie";
 import "./styles.css";
+import axiosInstance from "../../interceptor/axiosInstance";
 
 const OperatorAttendance = () => {
-  // Operator Attendance Pie Chart Data
-  const attendanceData = [
-    { id: "Present", label: "Present", value: 80 },
-    { id: "Absent", label: "Absent", value: 20 },
-  ];
+  const API_URL = import.meta.env.VITE_API_URL;
+  const [attendanceData, setAttendanceData] = useState([
+    { id: "Present", label: "Present", value: 0 },
+    { id: "Absent", label: "Absent", value: 0 },
+  ]);
+  const [selectedDate, setSelectedDate] = useState(new Date());
+
+  const fetchAttendanceData = async (date) => {
+    try {
+      const response = await axiosInstance.get(`${API_URL}/attendance/count/data/`, {
+        params: { date: date.toISOString().split("T")[0] }, // Optionally pass the date as a query parameter
+      });
+      const data = response.data;
+      setAttendanceData([
+        { id: "Present", label: "Present", value: data.present_count },
+        { id: "Absent", label: "Absent", value: data.absent_count },
+      ]);
+    } catch (error) {
+      console.error("Error fetching attendance data:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchAttendanceData(selectedDate);
+  }, [selectedDate]);
 
   const total = attendanceData.reduce((acc, item) => acc + item.value, 0);
-  const [selectedDate, setSelectedDate] = useState(new Date());
 
   return (
     <div className="chart-card">
@@ -18,7 +39,7 @@ const OperatorAttendance = () => {
         className="flex space-between align-center"
         style={{ marginBottom: "16px" }}
       >
-        <h3>Operator Attendance</h3>{" "}
+        <h3>Operator Attendance</h3>
         <input
           type="date"
           value={selectedDate.toISOString().split("T")[0]}

@@ -1,22 +1,60 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "./styles.css"; // Link to the CSS file for styling
+import "./styles.css";
 import Button from "../../../components/Button";
+import AuthService from "./AuthService";
+import { isExpired, decodeToken } from "react-jwt";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import axiosInstance from "../../../interceptor/axiosInstance";
 
 const Login = () => {
+
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
+    setLoading(true);
 
-    // Replace this with real authentication logic
-    if (username === "admin" && password === "admin") {
-      localStorage.setItem("isAuthenticated", "true");
-      navigate("/dashboard");
-    } else {
-      alert("Invalid credentials");
+    try {
+      const token = await AuthService.login(username, password);
+
+      if (!token) {
+        throw new Error("Login failed. No token received.");
+      }
+
+      const myDecodedToken = decodeToken(token?.access);
+      const isMyTokenExpired = isExpired(token?.refresh);
+
+      if (isMyTokenExpired) {
+        throw new Error("Session expired. Please login again.");
+      }
+
+      const currentUserId = myDecodedToken?.user_id;
+
+      localStorage.setItem("isAuthenticated", true);
+      localStorage.setItem("currentUser_id", currentUserId);
+
+      const response = await axiosInstance.post(`/auth/jwt/verify/`, {
+        token: token?.access,
+      });
+
+      if (response.status === 200) {
+        toast.success("Login successful! Redirecting...");
+        setTimeout(() => navigate("/dashboard"), 1500);
+      } else {
+        throw new Error("Token verification failed.");
+      }
+    } catch (error) {
+      console.error("Login error:", error);
+      toast.error(
+        error?.response?.data?.detail || error.message || "Login failed"
+      );
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -45,7 +83,7 @@ const Login = () => {
               placeholder="Enter your password"
             />
           </div>
-          <Button type="submit" variant="primary" fullWidth>
+          <Button type="submit" variant="primary" fullWidth loading={loading}>
             Login
           </Button>
         </form>

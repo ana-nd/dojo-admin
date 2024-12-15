@@ -1,13 +1,15 @@
+import { useState } from "react";
 import Button from "../../components/Button";
 import Modal from "../../components/Modal";
 
 const UploadAttendance = ({ open, onClose, handleUpload }) => {
+  const [file, setFile] = useState();
+
   // Handle file select
   const handleFileSelect = (e) => {
     const file = e.target.files[0];
     if (file) {
-      console.log("Uploaded file:", file);
-      // Here, you can parse the file and update the attendance data if needed
+      setFile(file);
     }
   };
 
@@ -21,7 +23,12 @@ const UploadAttendance = ({ open, onClose, handleUpload }) => {
           <Button variant="outline" size="small" onClick={onClose}>
             Cancel
           </Button>
-          <Button variant="primary" size="small" onClick={handleUpload}>
+          <Button
+            variant="primary"
+            size="small"
+            disabled={!file}
+            onClick={() => handleUpload(file)}
+          >
             Upload
           </Button>
         </>

@@ -43,13 +43,22 @@ h4 {
   justify-content: space-between;
 }
 
+.flex-end {
+  justify-content: flex-end;
+}
+
 .align-center {
   align-items: center;
+}
+
+.gap-8 {
+  gap: 8px;
 }
 
 .gap-16 {
   gap: 1rem;
 }
+
 .text-center {
   text-align: center;
 }
@@ -60,6 +69,14 @@ h4 {
 
 .w-full {
   width: 100%;
+}
+
+.mt-1 {
+  margin-top: 8px;
+}
+
+.mt-2 {
+  margin-top: 16px;
 }
 
 .mb-1 {
