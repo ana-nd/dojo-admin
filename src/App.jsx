@@ -8,6 +8,7 @@ import Employees from "./screens/employees";
 import BatchManagement from "./screens/batches";
 import AssessmentManagement from "./screens/assessment";
 import Courses from "./screens/courses";
+import Training from "./screens/trainings";
 
 // Layout for authenticated users
 const Layout = () => {
@@ -36,6 +37,7 @@ const App = () => {
         <Route path="/attendance" element={<Attendance />} />
         <Route path="/employees" element={<Employees />} />
         <Route path="/batches" element={<BatchManagement />} />
+        <Route path="/trainings" element={<Training />} />
         <Route path="/assessment" element={<AssessmentManagement />} />
         <Route path="/courses" element={<Courses />} />
       </Route>

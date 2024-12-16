@@ -1,4 +1,5 @@
 import { NavLink, useNavigate } from "react-router-dom";
+import logoImg from "../../assets/images/logo.jpeg";
 import "./styles.css";
 
 const Sidebar = () => {
@@ -13,6 +14,10 @@ const Sidebar = () => {
 
   return (
     <div className="sidebar">
+      <div className="logo-container">
+        <img src={logoImg} alt="logo" />
+        <p>DOJO 2.0</p>
+      </div>
       <ul>
         <li>
           <NavLink
@@ -52,6 +57,14 @@ const Sidebar = () => {
             className={({ isActive }) => (isActive ? "active" : "")}
           >
             Batches
+          </NavLink>
+        </li>
+        <li>
+          <NavLink
+            to="/trainings"
+            className={({ isActive }) => (isActive ? "active" : "")}
+          >
+            Trainings
           </NavLink>
         </li>
         <li>
