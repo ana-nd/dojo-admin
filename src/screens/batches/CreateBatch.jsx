@@ -38,31 +38,47 @@ const CreateBatch = ({
           onChange={handleChange}
         />
         <select
-          name="department"
-          className="w-full mb-2"
-          value={newBatch.department}
-          onChange={handleDepartmentChange}
-        >
-          <option value="">Select Department</option>
-          {departments.map((dept, index) => (
-            <option key={index} value={dept}>
-              {dept}
-            </option>
-          ))}
-        </select>
-        <select
-          name="users"
-          multiple
-          value={newBatch.users}
-          className="w-full mb-2"
-          onChange={handleUserSelection}
-        >
-          {users.map((user) => (
-            <option key={user.id} value={user.id}>
-              {user.name}
-            </option>
-          ))}
-        </select>
+            name="trainer"
+            className="w-full mb-2"
+            placeholder="Trainer Name"
+            value={newBatch.trainer}
+            onChange={handleDepartmentChange}
+          >
+            <option value="">Select Trainer</option>
+            {users.map((user) => (
+              <option key={user.id} value={user.id}>
+                {user.first_name} {user.last_name}
+              </option>
+            ))}
+          </select>
+        
+          <select
+            name="department"
+            className="w-full mb-2"
+            value={newBatch.department}
+            onChange={handleDepartmentChange}
+          >
+            <option value="">Select Department</option>
+            {departments.map((dept) => (
+              <option key={dept.id} value={dept.id}>
+                {dept.name} {/* Render department name */}
+              </option>
+            ))}
+          </select>
+
+          <select
+            name="users"
+            multiple
+            value={newBatch.users}
+            className="w-full mb-2"
+            onChange={handleUserSelection}
+          >
+            {users.map((user) => (
+              <option key={user.id} value={user.id}>
+                {user.first_name} {user.last_name} {/* Render user first and last name */}
+              </option>
+            ))}
+          </select>
         <input
           type="date"
           name="startDate"
@@ -77,14 +93,6 @@ const CreateBatch = ({
           placeholder="Target Date"
           className="w-full mb-2"
           value={newBatch.targetDate}
-          onChange={handleChange}
-        />
-        <input
-          type="text"
-          name="trainer"
-          placeholder="Trainer Name"
-          className="w-full mb-2"
-          value={newBatch.trainer}
           onChange={handleChange}
         />
       </form>

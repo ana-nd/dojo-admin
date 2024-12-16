@@ -1,5 +1,8 @@
+import React, { useEffect, useState } from "react";
 import Button from "../../components/Button";
 import Modal from "../../components/Modal";
+import axiosInstance from "../../interceptor/axiosInstance";
+const API_URL = import.meta.env.VITE_API_URL;
 
 const AddEmployee = ({
   open,
@@ -8,39 +11,32 @@ const AddEmployee = ({
   newEmployee,
   handleChange,
 }) => {
-  const departments = [
-    "ASSOCIATE",
-    "ASST MANAGER-I",
-    "ASST. GENERAL MANAGER-II",
-    "ASST. MANAGER-II",
-    "EXECUTIVE -I",
-    "EXECUTIVE -II",
-    "EXECUTIVE -III",
-    "GENERAL MANAGER-I",
-    "MANAGER-I",
-    "MANAGER-II",
-    "TRAINEE D.E.T AND G.E.T",
-    "VICE PRESIDENT",
-    "OPERATOR",
-  ];
-
-  const designations = [
-    "ASSOCIATE",
-    "ASST MANAGER-I",
-    "ASST. GENERAL MANAGER-II",
-    "ASST. MANAGER-II",
-    "EXECUTIVE -I",
-    "EXECUTIVE -II",
-    "EXECUTIVE -III",
-    "GENERAL MANAGER-I",
-    "MANAGER-I",
-    "MANAGER-II",
-    "TRAINEE D.E.T AND G.E.T",
-    "VICE PRESIDENT",
-    "OPERATOR",
-  ];
-
+  const [departments, setDepartments] = useState([]);
+  const [designations, setDesignations] = useState([]);
   const roles = ["Admin", "HR", "Operator", "Trainer"];
+
+  useEffect(() => {
+    const fetchDepartments = async () => {
+      try {
+        const response = await axiosInstance.get(`${API_URL}/account/department/list/`);
+        setDepartments(response.data); // Keep full object with id and name
+      } catch (error) {
+        console.error("Error fetching departments:", error);
+      }
+    };
+
+    const fetchDesignations = async () => {
+      try {
+        const response = await axiosInstance.get(`${API_URL}/account/designation/list/`);
+        setDesignations(response.data); // Keep full object with id and name
+      } catch (error) {
+        console.error("Error fetching designations:", error);
+      }
+    };
+
+    fetchDepartments();
+    fetchDesignations();
+  }, []);
 
   return (
     <Modal
@@ -90,9 +86,9 @@ const AddEmployee = ({
           onChange={handleChange}
         >
           <option value="">Select Department</option>
-          {departments.map((dept, index) => (
-            <option key={index} value={dept}>
-              {dept}
+          {departments.map((dept) => (
+            <option key={dept.id} value={dept.id}>
+              {dept.name}
             </option>
           ))}
         </select>
@@ -103,9 +99,9 @@ const AddEmployee = ({
           onChange={handleChange}
         >
           <option value="">Select Designation</option>
-          {designations.map((value, index) => (
-            <option key={index} value={value}>
-              {value}
+          {designations.map((desig) => (
+            <option key={desig.id} value={desig.id}>
+              {desig.name}
             </option>
           ))}
         </select>
@@ -125,9 +121,8 @@ const AddEmployee = ({
           value={newEmployee.cardNo}
           onChange={handleChange}
         />
-
         <select
-          name="role"
+          name="roles"
           value={newEmployee.role}
           className="w-full mb-2"
           onChange={handleChange}
@@ -139,79 +134,6 @@ const AddEmployee = ({
             </option>
           ))}
         </select>
-        {/* <label>Role/Permission</label>
-        <div className="role-options">
-          <label>
-            <input
-              type="radio"
-              name="is_employee"
-              value="true"
-              checked={newEmployee.is_employee}
-              onChange={handleChange}
-            />
-            Employee
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="is_trainer"
-              value="true"
-              checked={newEmployee.is_trainer}
-              onChange={handleChange}
-            />
-            Trainer
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="is_hr"
-              value="true"
-              checked={newEmployee.is_hr}
-              onChange={handleChange}
-            />
-            HR
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="is_support"
-              value="true"
-              checked={newEmployee.is_support}
-              onChange={handleChange}
-            />
-            Support
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="is_marketing"
-              value="true"
-              checked={newEmployee.is_marketing}
-              onChange={handleChange}
-            />
-            Marketing
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="is_sales"
-              value="true"
-              checked={newEmployee.is_sales}
-              onChange={handleChange}
-            />
-            Sales
-          </label>
-          <label>
-            <input
-              type="radio"
-              name="is_engineering"
-              value="true"
-              checked={newEmployee.is_engineering}
-              onChange={handleChange}
-            />
-            Engineering
-          </label>
-        </div> */}
       </form>
     </Modal>
   );
