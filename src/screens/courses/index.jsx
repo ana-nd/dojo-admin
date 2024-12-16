@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./styles.css";
 import Button from "../../components/Button";
+import AddCourse from "./AddCourse";
 
 const Courses = () => {
   const [courses, setCourses] = useState([
@@ -11,6 +12,7 @@ const Courses = () => {
       name: "React Basics",
       totalVideos: 10,
       trainer: "John Doe",
+      department: "Department 1",
     },
     {
       id: 2,
@@ -18,6 +20,41 @@ const Courses = () => {
       name: "JavaScript Advanced",
       totalVideos: 8,
       trainer: "Jane Smith",
+      department: "Department 2",
+    },
+    {
+      id: 3,
+      thumbnail:
+        "https://process.fs.teachablecdn.com/ADNupMnWyR7kCWRvm76Laz/resize=width:705/https://www.filepicker.io/api/file/fGWjtyQtG4JE7UXgaPAN",
+      name: "React Basics",
+      totalVideos: 10,
+      trainer: "John Doe",
+      department: "Department 1",
+    },
+    {
+      id: 4,
+      thumbnail:
+        "https://process.fs.teachablecdn.com/ADNupMnWyR7kCWRvm76Laz/resize=width:705/https://www.filepicker.io/api/file/fGWjtyQtG4JE7UXgaPAN",
+      name: "React Basics",
+      totalVideos: 10,
+      trainer: "John Doe",
+      department: "Department 1",
+    },
+    {
+      id: 5,
+      thumbnail: "https://www.filepicker.io/api/file/S5atf80QTb2tZOScHsiW",
+      name: "JavaScript Advanced",
+      totalVideos: 8,
+      trainer: "Jane Smith",
+      department: "Department 2",
+    },
+    {
+      id: 6,
+      thumbnail: "https://www.filepicker.io/api/file/S5atf80QTb2tZOScHsiW",
+      name: "JavaScript Advanced",
+      totalVideos: 8,
+      trainer: "Jane Smith",
+      department: "Department 2",
     },
   ]);
 
@@ -30,7 +67,7 @@ const Courses = () => {
     "async-await.mp4",
   ]);
 
-  const [isModalOpen, setModalOpen] = useState(false);
+  const [showAddCourse, setShowAddCourse] = useState(false);
 
   const [courseName, setCourseName] = useState("");
   const [department, setDepartment] = useState("");
@@ -58,7 +95,7 @@ const Courses = () => {
 
     setCourses([...courses, newCourse]);
     setVideos([...videos, ...newVideos]); // Add new videos to global video list
-    setModalOpen(false);
+    setShowAddCourse(false);
     resetForm();
   };
 
@@ -78,7 +115,7 @@ const Courses = () => {
   return (
     <div className="course-container">
       <div className="header">
-        <Button variant="success" onClick={() => setModalOpen(true)}>
+        <Button variant="success" onClick={() => setShowAddCourse(true)}>
           Add Course
         </Button>
       </div>
@@ -90,93 +127,37 @@ const Courses = () => {
               alt={course.name}
               className="course-thumbnail"
             />
-            <h3>{course.name}</h3>
-            <p>
-              <strong>Total Videos:</strong> {course.totalVideos}
-            </p>
-            <p>
-              <strong>Trainer:</strong> {course.trainer}
-            </p>
+            <div className="p-2">
+              <h3>{course.name}</h3>
+              <p>
+                <strong>Department:</strong> {course.department}
+              </p>
+              <p>
+                <strong>Trainer:</strong> {course.trainer}
+              </p>
+              <p>
+                <strong>Total Videos:</strong> {course.totalVideos}
+              </p>
+            </div>
           </div>
         ))}
       </div>
-
-      {isModalOpen && (
-        <div className="modal">
-          <div className="modal-content">
-            <h2>Add Course</h2>
-            <div className="form-group">
-              <label>Course Name:</label>
-              <input
-                type="text"
-                value={courseName}
-                onChange={(e) => setCourseName(e.target.value)}
-              />
-            </div>
-            <div className="form-group">
-              <label>Department:</label>
-              <select
-                value={department}
-                onChange={(e) => setDepartment(e.target.value)}
-              >
-                <option value="">Select Department</option>
-                <option value="IT">IT</option>
-                <option value="HR">HR</option>
-                <option value="Finance">Finance</option>
-              </select>
-            </div>
-            <div className="form-group">
-              <label>Trainer:</label>
-              <select
-                value={trainer}
-                onChange={(e) => setTrainer(e.target.value)}
-              >
-                <option value="">Select Trainer</option>
-                <option value="John Doe">John Doe</option>
-                <option value="Jane Smith">Jane Smith</option>
-              </select>
-            </div>
-            <div className="form-group">
-              <label>Select Videos:</label>
-              <select
-                multiple
-                value={selectedVideos}
-                onChange={(e) =>
-                  setSelectedVideos(
-                    Array.from(e.target.selectedOptions, (o) => o.value)
-                  )
-                }
-              >
-                {videos.map((video, index) => (
-                  <option key={index} value={video}>
-                    {video}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="form-group">
-              <label>Upload New Videos:</label>
-              <input type="file" multiple onChange={handleFileUpload} />
-              <ul>
-                {newVideos.map((video, index) => (
-                  <li key={index}>{video}</li>
-                ))}
-              </ul>
-            </div>
-            <div className="modal-actions">
-              <button onClick={handleAddCourse} className="btn-primary">
-                Save
-              </button>
-              <button
-                onClick={() => setModalOpen(false)}
-                className="btn-secondary"
-              >
-                Cancel
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+      <AddCourse
+        open={showAddCourse}
+        onClose={() => setShowAddCourse(false)}
+        handleSave={handleAddCourse}
+        courseName={courseName}
+        department={department}
+        trainer={trainer}
+        selectedVideos={selectedVideos}
+        newVideos={newVideos}
+        videos={videos}
+        setCourseName={setCourseName}
+        setDepartment={setDepartment}
+        setTrainer={setTrainer}
+        setSelectedVideos={setSelectedVideos}
+        handleFileUpload={handleFileUpload}
+      />
     </div>
   );
 };

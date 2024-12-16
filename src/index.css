@@ -87,6 +87,14 @@ h4 {
   margin-bottom: 16px;
 }
 
+.p-1 {
+  padding: 8px;
+}
+
+.p-2 {
+  padding: 16px;
+}
+
 /* Global Input Styles */
 input,
 select,

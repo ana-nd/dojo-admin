@@ -14,9 +14,12 @@ const OperatorAttendance = () => {
 
   const fetchAttendanceData = async (date) => {
     try {
-      const response = await axiosInstance.get(`${API_URL}/attendance/count/data/`, {
-        params: { date: date.toISOString().split("T")[0] }, // Optionally pass the date as a query parameter
-      });
+      const response = await axiosInstance.get(
+        `${API_URL}/attendance/count/data/`,
+        {
+          params: { date: date.toISOString().split("T")[0] }, // Optionally pass the date as a query parameter
+        }
+      );
       const data = response.data;
       setAttendanceData([
         { id: "Present", label: "Present", value: data.present_count },
@@ -62,19 +65,25 @@ const OperatorAttendance = () => {
           </div>
         </div>
         <div style={{ height: 300, width: "70%" }}>
-          <ResponsivePie
-            data={attendanceData}
-            margin={{ top: 40, right: 80, bottom: 40, left: 80 }}
-            innerRadius={0}
-            padAngle={1}
-            cornerRadius={4}
-            colors={["#b2fab4", "#ff7f7f"]}
-            borderWidth={1}
-            borderColor={{ from: "color", modifiers: [["darker", 0.2]] }}
-            enableRadialLabels={false}
-            enableSlicesLabels={true}
-            sliceLabel={(d) => `${d.value}%`}
-          />
+          {total > 0 ? (
+            <ResponsivePie
+              data={attendanceData}
+              margin={{ top: 40, right: 80, bottom: 40, left: 80 }}
+              innerRadius={0}
+              padAngle={1}
+              cornerRadius={4}
+              colors={["#b2fab4", "#ff7f7f"]}
+              borderWidth={1}
+              borderColor={{ from: "color", modifiers: [["darker", 0.2]] }}
+              enableRadialLabels={false}
+              enableSlicesLabels={true}
+              sliceLabel={(d) => `${d.value}%`}
+            />
+          ) : (
+            <div style={{ padding: "20px", fontSize: "16px", color: "#888" }}>
+              <p>No data available to display the chart</p>
+            </div>
+          )}
         </div>
       </div>
     </div>
